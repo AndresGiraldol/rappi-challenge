@@ -1,0 +1,19 @@
+<b>Ordenar Por:  </b>
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary">
+          <a style="cursor: pointer">Precio <i class="fa fa-angle-down"></i></a>
+        </label>
+    <label class="btn btn-secondary">
+           <a style="cursor: pointer">Disponibilidad <i class="fa fa-angle-down"></i></a>
+        </label>
+    <label class="btn btn-secondary">
+          <a style="cursor: pointer">Cantidad <i class="fa fa-angle-down"></i></a>
+        </label>
+</div>
+
+<hr>
+<div class="row">
+    <div *ngFor="let product of products" class="col-sm p-2 col-lg-4 d-flex justify-content-center">
+        <app-product-card [product]="product" (addedToCart)=" true "></app-product-card>
+    </div>
+</div>

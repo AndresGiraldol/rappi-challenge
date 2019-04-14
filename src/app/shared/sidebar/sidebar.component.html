@@ -1,0 +1,71 @@
+<!-- Sidebar  -->
+<nav id="sidebar" [ngClass]="{'active': openSideBar}">
+    <div id="dismiss" (click)="openSideBar = false">
+        <i class="fa fa-arrow-left"></i>
+    </div>
+
+    <div class="sidebar-header">
+        <h3>Tiendas El Baratón</h3>
+    </div>
+
+    <ul class="list-unstyled components">
+        <div (click)="backCategory()">
+            <div class="text-center" *ngIf="indexCategory !== null && indexCategory !== undefined">
+                <i class="fa fa-arrow-left"></i>
+            </div>
+            <p class="text-center">{{ activeCategory | uppercase}} </p>
+        </div>
+
+        <li *ngFor="let menu of menuCategories; let i=index">
+
+            <a *ngIf="i < 6" (click)="openSubMenu(menu,i) ">
+              {{ menu.name }}
+            <i  *ngIf="menu.sublevels" class="fa fa-arrow-circle-right"></i>
+            </a>
+
+            <div *ngIf="menu.sublevels" [ngClass]="{ 'active': i===indexCategory && openSideBar} " class="megaMenu ">
+
+                <ul class="list-unstyled" id="homeSubmenu">
+
+                    <li *ngFor="let sublevels1 of menu.sublevels">
+                        <a (click)="collapseLastSubLevel(sublevels1)">
+                          {{ sublevels1.name }}
+                          <i *ngIf="sublevels1.sublevels" class="fa fa-arrow-circle-right"></i>
+                       </a>
+
+                        <ul [ngClass]=" { 'show': showLastSubLevel }" class="list-unstyled lastSubLevel" id="pageSubmenu">
+                            <li *ngFor="let sublevels2 of sublevels1.sublevels">
+                                <a (click)="openSideBar = false" [routerLink]="['productos', sublevels2.id]" class="lastSubLevelItem">{{ sublevels2.name }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+    <ul class="list-unstyled" *ngIf="menuCategories.length >= 6">
+        <li>
+            <a href="https://bootstrapious.com/tutorial/files/sidebar.zip">Ver mas categorias</a>
+        </li>
+    </ul>
+</nav>
+<div class="overlay" [ngClass]="{'active': openSideBar}"></div>
+
+
+<div class="container">
+    <br>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+
+            <button (click)="openSideBar = true" type="button" id="sidebarCollapse" class="btn btn-warning">
+              <i class="text-white fa fa-list-alt"></i>
+              <span class="d-none d-sm-inline text-white"> Categorias</span>
+            </button>
+            <p class="d-none d-sm-inline">TIENDAS EL BARATON</p>
+            <span class="fa-stack fa-2x has-badge" data-count="0">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-shopping-basket fa-stack-1x fa-inverse"></i>
+              </span>
+        </div>
+    </nav>
+</div>
